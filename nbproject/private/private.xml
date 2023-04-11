@@ -7,11 +7,14 @@
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/main.java</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/BanquedesangFXML.fxml</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/banquedesangcss.css</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/service/ServiceBanqueDeSang.java</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/pidv/Pidv.java</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/NotificationsFXMLController.java</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/notificationscss.css</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/service/Servicenotifications.java</file>
-            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/BanquedesangFXMLController.java</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/NotificationsFXML.fxml</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/entity/banquedesang.java</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/BanquedesangFXMLController.java</file>
         </group>
     </open-files>
 </project-private>

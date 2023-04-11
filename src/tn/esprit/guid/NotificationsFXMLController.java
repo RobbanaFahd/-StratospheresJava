@@ -92,32 +92,52 @@ public class NotificationsFXMLController implements Initializable {
 
     @FXML
     private void supprimer(ActionEvent event) {
-notifications notif = tablenotifications.getSelectionModel().getSelectedItem();
+        notifications notif = tablenotifications.getSelectionModel().getSelectedItem();
 
-    if (notif == null) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText("Cliquez sur une notification dans le tableau!");
-        alert.showAndWait();
-    } else {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous vraiment supprimer cette notification : " + notif.getId() + " ?");
-        alert.setHeaderText(null);
-        //Getting Buttons
-        Optional<ButtonType> result = alert.showAndWait();
-        //Testing if the user clicked OK
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            Servicenotifications sn = new Servicenotifications();
-            sn.supprimer(notif);
-            //updating notification data after closing popup
-            notificationsData = FXCollections.observableList(sn.afficher());
-            tablenotifications.setItems(notificationsData);
+        if (notif == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Cliquez sur une notification dans le tableau!");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous vraiment supprimer cette notification : " + notif.getId() + " ?");
+            alert.setHeaderText(null);
+            //Getting Buttons
+            Optional<ButtonType> result = alert.showAndWait();
+            //Testing if the user clicked OK
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Servicenotifications sn = new Servicenotifications();
+                sn.supprimer(notif);
+                //updating notification data after closing popup
+                notificationsData = FXCollections.observableList(sn.afficher());
+                tablenotifications.setItems(notificationsData);
+            }
         }
     }
-    }
 
-    @FXML
-    private void modifier(ActionEvent event) {
+ @FXML
+public void modifier(ActionEvent event) {
+    if (titleColumn.getText().isEmpty() || messageColumn.getText().isEmpty() || recipientColumn.getText().isEmpty() || senderColumn.getText().isEmpty() || typesang.getText().isEmpty()) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Modification rejetée");
+        alert.showAndWait();
+    } else {
+        notifications n = tablenotifications.getSelectionModel().getSelectedItem();
+        n.setTitle(titleColumn.getText());
+        n.setMessage(messageColumn.getText());
+        n.setRecipient(recipientColumn.getText());
+        n.setSender(senderColumn.getText());
+        n.setTypesang(typesangColumn.getText());
+        tablenotifications.modifier(n.getTitle(), n.getMessage(), n.getRecipient(), n.getSender(), n.getTypesang(), n);
+        af();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Message");
+        alert.setHeaderText("Modification avec succès");
+        alert.showAndWait();
     }
-
 }
+
+
+

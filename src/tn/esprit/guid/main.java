@@ -23,7 +23,7 @@ public class main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent parent = FXMLLoader.load(getClass().getResource("NotificationsFXML.fxml"));
+            Parent parent = FXMLLoader.load(getClass().getResource("BanquedesangFXML.fxml"));
             Scene scene = new Scene(parent);
             primaryStage.setTitle("Banque de sang");
 
@@ -39,5 +39,4 @@ public class main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }
