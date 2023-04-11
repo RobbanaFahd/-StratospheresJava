@@ -92,4 +92,8 @@ public class ServiceBanqueDeSang {
         }
         return ct;
     }
+
+    public void modifier(banquedesang banque) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

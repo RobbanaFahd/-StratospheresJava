@@ -15,12 +15,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import tn.esprit.entity.notifications;
 import tn.esprit.service.Servicenotifications;
 
@@ -116,28 +120,83 @@ public class NotificationsFXMLController implements Initializable {
         }
     }
 
- @FXML
+@FXML
 public void modifier(ActionEvent event) {
-    if (titleColumn.getText().isEmpty() || messageColumn.getText().isEmpty() || recipientColumn.getText().isEmpty() || senderColumn.getText().isEmpty() || typesang.getText().isEmpty()) {
+    notifications selectedNotification = tablenotifications.getSelectionModel().getSelectedItem();
+
+    if (selectedNotification == null) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erreur");
-        alert.setHeaderText("Modification rejetée");
+        alert.setHeaderText(null);
+        alert.setContentText("Cliquez sur une notification dans le tableau!");
         alert.showAndWait();
     } else {
-        notifications n = tablenotifications.getSelectionModel().getSelectedItem();
-        n.setTitle(titleColumn.getText());
-        n.setMessage(messageColumn.getText());
-        n.setRecipient(recipientColumn.getText());
-        n.setSender(senderColumn.getText());
-        n.setTypesang(typesangColumn.getText());
-        tablenotifications.modifier(n.getTitle(), n.getMessage(), n.getRecipient(), n.getSender(), n.getTypesang(), n);
-        af();//zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Message");
-        alert.setHeaderText("Modification avec succès");
-        alert.showAndWait();
+        Dialog<notifications> dialog = new Dialog<>();
+        dialog.setTitle("Modifier la notification");
+        dialog.setHeaderText("Modifier les informations de la notification");
+
+        // Set the button types.
+        ButtonType modifierButtonType = new ButtonType("Modifier", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(modifierButtonType, ButtonType.CANCEL);
+
+        // Create the notification fields.
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+
+        TextField titleField = new TextField();
+        titleField.setText(selectedNotification.getTitle());
+        TextField messageField = new TextField();
+        messageField.setText(selectedNotification.getMessage());
+        TextField recipientField = new TextField();
+        recipientField.setText(selectedNotification.getRecipient());
+        TextField senderField = new TextField();
+        senderField.setText(selectedNotification.getSender());
+        ChoiceBox<String> typesangField = new ChoiceBox<>(FXCollections.observableArrayList(typesang));
+        typesangField.setValue(selectedNotification.getTypesang());
+
+        grid.add(new Label("Titre:"), 0, 0);
+        grid.add(titleField, 1, 0);
+        grid.add(new Label("Message:"), 0, 1);
+        grid.add(messageField, 1, 1);
+        grid.add(new Label("Destinataire:"), 0, 2);
+        grid.add(recipientField, 1, 2);
+        grid.add(new Label("Expéditeur:"), 0, 3);
+        grid.add(senderField, 1, 3);
+        grid.add(new Label("Type sanguin:"), 0, 4);
+        grid.add(typesangField, 1, 4);
+
+        dialog.getDialogPane().setContent(grid);
+
+        // Convert the result to a username-password-pair when the login button is clicked.
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == modifierButtonType) {
+                notifications n = new notifications();
+                n.setTitle(titleField.getText());
+                n.setMessage(messageField.getText());
+                n.setRecipient(recipientField.getText());
+                n.setSender(senderField.getText());
+                n.setTypesang(typesangField.getValue());
+                return n;
+            }
+            return null;
+        });
+
+        Optional<notifications> result = dialog.showAndWait();
+
+        result.ifPresent(notification -> {
+            Servicenotifications sn = new Servicenotifications();
+            sn.modifier(selectedNotification.getId(), notification);
+            //updating notification data after closing popup
+            notificationsData = FXCollections.observableList(sn.afficher());
+            tablenotifications.setItems(notificationsData);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Message");
+            alert.setHeaderText("Modification avec succès");
+            alert.showAndWait();
+        });
     }
 }
 
 
-
+}
