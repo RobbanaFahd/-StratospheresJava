@@ -131,7 +131,7 @@ public void modifier(ActionEvent event) {
         n.setSender(senderColumn.getText());
         n.setTypesang(typesangColumn.getText());
         tablenotifications.modifier(n.getTitle(), n.getMessage(), n.getRecipient(), n.getSender(), n.getTypesang(), n);
-        af();
+        af();//zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Message");
         alert.setHeaderText("Modification avec succès");
