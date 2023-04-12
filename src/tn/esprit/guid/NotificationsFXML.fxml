@@ -32,5 +32,6 @@
             <TableColumn fx:id="typesangColumn" prefWidth="118.39996337890625" text="Typesang" />
         </columns>
       </TableView>
+      <Button fx:id="bb" layoutX="686.0" layoutY="324.0" mnemonicParsing="false" onAction="#retour" text="Retour" />
    </children>
 </AnchorPane>
