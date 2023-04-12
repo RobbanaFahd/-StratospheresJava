@@ -31,5 +31,6 @@
       </TableView>
       <Button fx:id="supprimer" layoutX="520.0" layoutY="513.0" mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
       <Button fx:id="modifier" layoutX="393.0" layoutY="513.0" mnemonicParsing="false" onAction="#modifier" text="Modifier" />
+      <Button fx:id="bb" layoutX="731.0" layoutY="513.0" mnemonicParsing="false" onAction="#retour" text="Retour" />
    </children>
 </AnchorPane>

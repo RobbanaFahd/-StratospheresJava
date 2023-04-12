@@ -70,7 +70,7 @@ public class UserInterfacesController implements Initializable {
     private void shownotifications(ActionEvent event) {
         try {
             Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("NotificationsFXML.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("UserNotifications.fxml"));
             root = loader.load();
             bb.getScene().setRoot(root);
         } catch (IOException ex) {
