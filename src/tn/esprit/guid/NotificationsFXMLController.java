@@ -38,7 +38,7 @@ public class NotificationsFXMLController implements Initializable {
     notifications n = new notifications();
     Servicenotifications sn = new Servicenotifications();
     private ObservableList<notifications> notificationsData = FXCollections.observableArrayList();
-    private String[] typesang = {"Type A", "Type O", "Type B"};
+    private final String[] typesang = {"Type A", "Type O", "Type B"};
 
     @FXML
     private TextField tftitle;
@@ -49,7 +49,7 @@ public class NotificationsFXMLController implements Initializable {
     @FXML
     private TextField tfsender;
     @FXML
-    private ChoiceBox<notifications> cbtypesang;
+    private ChoiceBox<String> cbtypesang;
     @FXML
     private TableColumn<notifications, String> titleColumn;
     @FXML
@@ -76,26 +76,72 @@ public class NotificationsFXMLController implements Initializable {
         recipientColumn.setCellValueFactory(new PropertyValueFactory<>("recipient"));
         senderColumn.setCellValueFactory(new PropertyValueFactory<>("sender"));
         typesangColumn.setCellValueFactory(new PropertyValueFactory<>("typesang"));
-
-        // Load the data from the database and add it to the table
+        cbtypesang.setItems(FXCollections.observableArrayList(typesang));
         List<notifications> notifications = sn.afficher();
         notificationsData.addAll(notifications);
         tablenotifications.setItems(notificationsData);
-
     }
 
-    @FXML
-    private void ajouter(ActionEvent event) {
-        n.setTitle(tftitle.getText());
-        n.setMessage(tfmessage.getText());
-        n.setRecipient(tfrecipient.getText());
-        n.setSender(tfsender.getText());
-        n.setTypesang(cbtypesang.getValue().toString());
-        sn.ajouter(n);
+@FXML
+private void ajouter(ActionEvent event) {
+    String title = tftitle.getText();
+    String message = tfmessage.getText();
+    String recipient = tfrecipient.getText();
+    String sender = tfsender.getText();
+    String typesang = cbtypesang.getValue();
+
+    // Input validation
+    if (title.isEmpty() || message.isEmpty() || recipient.isEmpty() || sender.isEmpty() || typesang == null) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill in all fields", ButtonType.OK);
+        alert.showAndWait();
+        return;
     }
 
-    @FXML
-    private void supprimer(ActionEvent event) {
+    if (!isValidEmail(recipient)) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid recipient email address", ButtonType.OK);
+        alert.showAndWait();
+        return;
+    }
+
+    if (!isValidEmail(sender)) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid sender email address", ButtonType.OK);
+        alert.showAndWait();
+        return;
+    }
+
+    // Create a new notification object and set its properties
+    notifications n = new notifications();
+    n.setTitle(title);
+    n.setMessage(message);
+    n.setRecipient(recipient);
+    n.setSender(sender);
+    n.setTypesang(typesang);
+
+    // Call the service layer to add the notification to the database
+    sn.ajouter(n);
+
+    // Add the new notification to the table view
+    notificationsData.add(n);
+
+    // Clear the input fields
+    tftitle.clear();
+    tfmessage.clear();
+    tfrecipient.clear();
+    tfsender.clear();
+    cbtypesang.getSelectionModel().clearSelection();
+}
+
+private boolean isValidEmail(String email) {
+    // A simple regex pattern to validate email addresses
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+    return email.matches(emailRegex);
+}
+
+
+
+
+@FXML
+        private void supprimer(ActionEvent event) {
         notifications notif = tablenotifications.getSelectionModel().getSelectedItem();
 
         if (notif == null) {
@@ -121,14 +167,14 @@ public class NotificationsFXMLController implements Initializable {
     }
 
 @FXML
-public void modifier(ActionEvent event) {
+        public void modifier(ActionEvent event) {
     notifications selectedNotification = tablenotifications.getSelectionModel().getSelectedItem();
 
     if (selectedNotification == null) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erreur");
         alert.setHeaderText(null);
-        alert.setContentText("Cliquez sur une notification dans le tableau!");
+        alert.setContentText("Cliquez sur une notification dans le tableau !");
         alert.showAndWait();
     } else {
         Dialog<notifications> dialog = new Dialog<>();
@@ -139,7 +185,7 @@ public void modifier(ActionEvent event) {
         ButtonType modifierButtonType = new ButtonType("Modifier", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(modifierButtonType, ButtonType.CANCEL);
 
-        // Create the notification fields.
+        // Create the labels and text fields.
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
@@ -148,34 +194,35 @@ public void modifier(ActionEvent event) {
         titleField.setText(selectedNotification.getTitle());
         TextField messageField = new TextField();
         messageField.setText(selectedNotification.getMessage());
-        TextField recipientField = new TextField();
-        recipientField.setText(selectedNotification.getRecipient());
         TextField senderField = new TextField();
         senderField.setText(selectedNotification.getSender());
+        TextField recipientField = new TextField();
+        recipientField.setText(selectedNotification.getRecipient());
         ChoiceBox<String> typesangField = new ChoiceBox<>(FXCollections.observableArrayList(typesang));
-        typesangField.setValue(selectedNotification.getTypesang());
+        typesangField.getSelectionModel().select(selectedNotification.getTypesang());
 
-        grid.add(new Label("Titre:"), 0, 0);
+        grid.add(new Label("Titre :"), 0, 0);
         grid.add(titleField, 1, 0);
-        grid.add(new Label("Message:"), 0, 1);
+        grid.add(new Label("Message :"), 0, 1);
         grid.add(messageField, 1, 1);
-        grid.add(new Label("Destinataire:"), 0, 2);
-        grid.add(recipientField, 1, 2);
-        grid.add(new Label("Expéditeur:"), 0, 3);
-        grid.add(senderField, 1, 3);
-        grid.add(new Label("Type sanguin:"), 0, 4);
+        grid.add(new Label("Expéditeur :"), 0, 2);
+        grid.add(senderField, 1, 2);
+        grid.add(new Label("Destinataire :"), 0, 3);
+        grid.add(recipientField, 1, 3);
+        grid.add(new Label("Type sanguin :"), 0, 4);
         grid.add(typesangField, 1, 4);
 
         dialog.getDialogPane().setContent(grid);
 
-        // Convert the result to a username-password-pair when the login button is clicked.
+        // Convert the result to a notifications object when the modifier button is clicked.
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == modifierButtonType) {
                 notifications n = new notifications();
+                n.setId(selectedNotification.getId());
                 n.setTitle(titleField.getText());
                 n.setMessage(messageField.getText());
-                n.setRecipient(recipientField.getText());
                 n.setSender(senderField.getText());
+                n.setRecipient(recipientField.getText());
                 n.setTypesang(typesangField.getValue());
                 return n;
             }
@@ -184,19 +231,13 @@ public void modifier(ActionEvent event) {
 
         Optional<notifications> result = dialog.showAndWait();
 
-        result.ifPresent(notification -> {
-            Servicenotifications sn = new Servicenotifications();
-            sn.modifier(selectedNotification.getId(), notification);
-            //updating notification data after closing popup
-            notificationsData = FXCollections.observableList(sn.afficher());
+        if (result.isPresent()) {
+            sn.modifier(result.get());
+            // updating notification data after closing popup
+            notificationsData.setAll(sn.afficher());
             tablenotifications.setItems(notificationsData);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Message");
-            alert.setHeaderText("Modification avec succès");
-            alert.showAndWait();
-        });
+        }
     }
 }
-
 
 }

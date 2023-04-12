@@ -24,8 +24,6 @@ public class MaininterfacesController implements Initializable {
 
     @FXML
     private Button bb;
-    @FXML
-    private Button ff;
 
     /**
      * Initializes the controller class.
@@ -41,9 +39,10 @@ public class MaininterfacesController implements Initializable {
     @FXML
     private void showbanquedesang(ActionEvent event) {
         try {
-            Parent loader;
-            loader = FXMLLoader.load(getClass().getResource("BanquedesangFXML.fxml"));
-            ff.getScene().setRoot(loader);
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("BanquedesangFXML.fxml"));
+            root = loader.load();
+            bb.getScene().setRoot(root);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
@@ -51,5 +50,13 @@ public class MaininterfacesController implements Initializable {
 
     @FXML
     private void shownotifications(ActionEvent event) {
+        try {
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("NotificationsFXML.fxml"));
+            root = loader.load();
+            bb.getScene().setRoot(root);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }

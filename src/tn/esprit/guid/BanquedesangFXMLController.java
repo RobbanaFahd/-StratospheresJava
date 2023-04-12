@@ -5,6 +5,7 @@
  */
 package tn.esprit.guid;
 
+import static com.sun.webkit.perf.WCFontPerfLogger.reset;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -82,12 +83,42 @@ public class BanquedesangFXMLController implements Initializable {
 
     @FXML
     private void ajouter(ActionEvent event) {
-        b.setNom(tfnom.getText());
-        b.setAdresse(tfadresse.getText());
-        b.setTel(Integer.parseInt(tftel.getText()));
-        b.setLongitude(Float.parseFloat(tflongitude.getText()));
-        b.setLatitude(Float.parseFloat(tfaltitude.getText()));
-        sb.ajouter(b);
+        if (tfnom.getText().isEmpty() || tfadresse.getText().isEmpty() || tftel.getText().isEmpty() || tflongitude.getText().isEmpty() || tfaltitude.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("ajouter des champs");
+            alert.showAndWait();
+        } else if (!tftel.getText().matches("\\d{8}")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Numéro de téléphone invalide");
+            alert.setContentText("Le numéro de téléphone doit contenir 8 chiffres.");
+            alert.showAndWait();
+        } else if (Float.parseFloat(tflongitude.getText()) < 180 || Float.parseFloat(tflongitude.getText()) > 0 || Float.parseFloat(tfaltitude.getText()) < 90 || Float.parseFloat(tfaltitude.getText()) > 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Coordonnées géographiques invalides");
+            alert.setContentText("La longitude doit être comprise entre 0 et 180 degrés, et la latitude doit être comprise entre 0 et 90 degrés.");
+            alert.showAndWait();
+        } else if (!tfnom.getText().matches("[a-zA-Z0-9' -]{1,50}") || !tfadresse.getText().matches("[a-zA-Z0-9' -]{1,100}")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Nom ou adresse invalide");
+            alert.setContentText("Le nom ou l'adresse doit contenir uniquement des lettres, des chiffres et les caractères spéciaux suivants : - '");
+            alert.showAndWait();
+        } else {
+            b.setNom(tfnom.getText());
+            b.setAdresse(tfadresse.getText());
+            b.setTel(Integer.parseInt(tftel.getText()));
+            b.setLongitude(Float.parseFloat(tflongitude.getText()));
+            b.setLatitude(Float.parseFloat(tfaltitude.getText()));
+            sb.ajouter(b);
+            reset();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("msg");
+            alert.setHeaderText("succés");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -187,7 +218,8 @@ public class BanquedesangFXMLController implements Initializable {
             Optional<banquedesang> result = dialog.showAndWait();
             if (result.isPresent()) {
                 banquedesang banque = result.get();
-                sb.modifier(banque);
+                System.out.println(banque);
+                sb.modifierBanque(banque);
                 banqueData.setAll(sb.afficher());
             }
 

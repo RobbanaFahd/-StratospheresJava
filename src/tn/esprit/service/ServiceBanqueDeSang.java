@@ -30,7 +30,6 @@ public class ServiceBanqueDeSang {
 
     public void ajouter(banquedesang b) {
         try {
-
             String sql = "INSERT INTO `banque_de_sang`(`nom`,`adresse`,`tel`,`longitude`,`latitude`) VALUES (?,?,?,?,?)";
             PreparedStatement ste = cnx.prepareStatement(sql);
             ste.setString(1, b.getNom());
@@ -47,7 +46,7 @@ public class ServiceBanqueDeSang {
 
     }
 
-    public void supprimer(int id,banquedesang b) {
+    public void supprimer(int id, banquedesang b) {
         try {
             String sql = "DELETE FROM `banque_de_sang` WHERE  id = ?";
             PreparedStatement ste = cnx.prepareStatement(sql);
@@ -93,7 +92,21 @@ public class ServiceBanqueDeSang {
         return ct;
     }
 
-    public void modifier(banquedesang banque) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void modifierBanque(banquedesang banque) {
+        String sql = "update banque_de_sang set nom=? , adresse=? , tel=? , longitude=?, latitude=? where id=?";
+        try {
+            PreparedStatement ste = cnx.prepareStatement(sql);
+            ste.setString(1, banque.getNom());
+            ste.setString(2, banque.getAdresse());
+            ste.setInt(3, banque.getTel());
+            ste.setFloat(4, banque.getLongitude());
+            ste.setFloat(5, banque.getLatitude());
+            ste.setInt(6, banque.getId());
+            ste.executeUpdate();
+            System.out.println("Banque de Sang Modifier");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } //To change body of generated methods, choose Tools | Templates.
     }
+
 }

@@ -20,12 +20,14 @@ import tn.esprit.tools.Connexion;
  * @author Fahd
  */
 public class Servicenotifications {
-        Connection cnx;
+
+    Connection cnx;
 
     public Servicenotifications() {
         cnx = Connexion.getInstance().getCnx();
 
     }
+
     public void ajouter(notifications n) {
         try {
 
@@ -44,7 +46,8 @@ public class Servicenotifications {
         }
 
     }
-     public void supprimer(notifications n) {
+
+    public void supprimer(notifications n) {
         try {
             String sql = "DELETE FROM `notifications` WHERE  id = ?";
             PreparedStatement ste = cnx.prepareStatement(sql);
@@ -55,7 +58,8 @@ public class Servicenotifications {
             System.out.println(ex.getMessage());
         }
     }
-     public void modifier(String title, String message, String recipient, String sender, String typesang, notifications n) {
+
+    public void modifier(String title, String message, String recipient, String sender, String typesang, notifications n) {
         String sql = "update notifications set title=? , message=? , recipient=? , sender=? , typesang=? where id=?";
         try {
             PreparedStatement ste = cnx.prepareStatement(sql);
@@ -71,7 +75,8 @@ public class Servicenotifications {
             System.out.println(ex.getMessage());
         }
     }
-         public List<notifications> afficher() {
+
+    public List<notifications> afficher() {
         List<notifications> ct = new ArrayList<>();
         try {
             String sql = "select * from notifications";
@@ -91,4 +96,22 @@ public class Servicenotifications {
         return ct;
     }
 
+    public void modifier(notifications n) {
+        String sql = "update notifications set title=? , message=? , recipient=? , sender=? , typesang=? where id=?";
+        try {
+            PreparedStatement ste = cnx.prepareStatement(sql);
+            ste.setString(1, n.getTitle());
+            ste.setString(2, n.getMessage());
+            ste.setString(3, n.getRecipient());
+            ste.setString(4, n.getSender());
+            ste.setString(5, n.getTypesang());
+            ste.setInt(6, n.getId());
+            ste.executeUpdate();
+            System.out.println("Notification Modifiée");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
 }
+
