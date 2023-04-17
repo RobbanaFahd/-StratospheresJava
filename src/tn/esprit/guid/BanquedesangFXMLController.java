@@ -91,7 +91,7 @@ public class BanquedesangFXMLController implements Initializable {
         if (tfnom.getText().isEmpty() || tfadresse.getText().isEmpty() || tftel.getText().isEmpty() || tflongitude.getText().isEmpty() || tfaltitude.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
-            alert.setHeaderText("ajouter des champs");
+            alert.setHeaderText("Remplir le formulaire");
             alert.showAndWait();
         } else if (!tftel.getText().matches("\\d{8}")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

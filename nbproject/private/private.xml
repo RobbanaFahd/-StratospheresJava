@@ -5,25 +5,30 @@
         <group>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/userinterfaces.css</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/main.java</file>
-            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/BanquedesangFXML.fxml</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/WebViewController.java</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/Blood%20Bank%20logo%202022-03.png</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/banquedesangcss.css</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/maininterfaces.fxml</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/UserInterfaces.fxml</file>
-            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/UserInterfacesController.java</file>
-            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/MaininterfacesController.java</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/NotificationsFXML.fxml</file>
-            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/entity/notifications.java</file>
-            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/usernotifications.css</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/WebView.fxml</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/service/ServiceBanqueDeSang.java</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/webview.css</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/pidv/Pidv.java</file>
-            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/maininterfaces.css</file>
-            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/NotificationsFXMLController.java</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/UserNotificationsController.java</file>
-            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/UserNotifications.fxml</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/leaflet.js</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/notificationscss.css</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/service/Servicenotifications.java</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/BanquedesangFXMLController.java</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/BanquedesangFXML.fxml</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/UserInterfacesController.java</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/MaininterfacesController.java</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/entity/notifications.java</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/usernotifications.css</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/leaflet.html</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/maininterfaces.css</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/NotificationsFXMLController.java</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/UserNotifications.fxml</file>
         </group>
     </open-files>
 </project-private>

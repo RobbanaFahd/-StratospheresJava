@@ -23,7 +23,7 @@ public class main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent parent = FXMLLoader.load(getClass().getResource("UserInterfaces.fxml"));
+            Parent parent = FXMLLoader.load(getClass().getResource("WebView.fxml"));
             Scene scene = new Scene(parent);
             primaryStage.setTitle("Banque de sang");
 
