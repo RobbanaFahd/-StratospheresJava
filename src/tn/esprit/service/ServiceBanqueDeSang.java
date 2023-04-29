@@ -109,6 +109,23 @@ public class ServiceBanqueDeSang {
         } //To change body of generated methods, choose Tools | Templates.
     }
 
-
+    public double[] getMarkerCoordinates(int id) {
+        String sql = "SELECT longitude, latitude FROM banque_de_sang WHERE id = ?";
+        try {
+            PreparedStatement stmt = cnx.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                double longitude = rs.getDouble("longitude");
+                double latitude = rs.getDouble("latitude");
+                return new double[]{longitude, latitude};
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
 
 }

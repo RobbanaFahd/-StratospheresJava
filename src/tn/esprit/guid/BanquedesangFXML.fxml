@@ -32,5 +32,8 @@
       <Button fx:id="supprimer" layoutX="520.0" layoutY="513.0" mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
       <Button fx:id="modifier" layoutX="393.0" layoutY="513.0" mnemonicParsing="false" onAction="#modifier" text="Modifier" />
       <Button fx:id="bb" layoutX="731.0" layoutY="513.0" mnemonicParsing="false" onAction="#retour" text="Retour" />
+      <TextField fx:id="filterInput" layoutX="681.0" layoutY="305.0" />
+      <Label layoutX="605.0" layoutY="311.0" text="Chercher" />
+      <Button fx:id="pdfButton" layoutX="379.0" layoutY="304.0" mnemonicParsing="false" onAction="#DownloadPDF" text="Download PDF" />
    </children>
 </AnchorPane>

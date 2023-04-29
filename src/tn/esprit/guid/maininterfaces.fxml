@@ -25,5 +25,7 @@
             <Image url="@Blood%20Bank%20logo%202022-03.png" />
          </image>
       </ImageView>
+      <Button layoutX="308.0" layoutY="450.0" mnemonicParsing="false" onAction="#mapbanquedesang" text="Voir les banques de sang sur la carte" />
+      <Button fx:id="afficherstatistique" layoutX="628.0" layoutY="450.0" mnemonicParsing="false" onAction="#showStat" text="Afficher Les statistiques" />
    </children>
 </AnchorPane>

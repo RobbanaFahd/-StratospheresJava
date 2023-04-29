@@ -35,5 +35,6 @@
             <Image url="@Blood%20Bank%20logo%202022-03.png" />
          </image>
       </ImageView>
+      <Button fx:id="pdfButton" layoutX="510.0" layoutY="376.0" mnemonicParsing="false" onAction="#DownloadPDF" text="Download PDF" />
    </children>
 </AnchorPane>

@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,6 +69,8 @@ public class NotificationsFXMLController implements Initializable {
     private TableView<notifications> tablenotifications;
     @FXML
     private Button bb;
+    @FXML
+    private Button afficherstat;
 
     /**
      * Initializes the controller class.
@@ -86,6 +89,7 @@ public class NotificationsFXMLController implements Initializable {
         List<notifications> notifications = sn.afficher();
         notificationsData.addAll(notifications);
         tablenotifications.setItems(notificationsData);
+
     }
 
     @FXML
@@ -125,9 +129,12 @@ public class NotificationsFXMLController implements Initializable {
 
         // Call the service layer to add the notification to the database
         sn.ajouter(n);
+        
+        
 
         // Add the new notification to the table view
         notificationsData.add(n);
+        
 
         // Clear the input fields
         tftitle.clear();
@@ -253,6 +260,21 @@ public class NotificationsFXMLController implements Initializable {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+    @FXML
+    private SwingNode chartContainer;
+
+    @FXML
+    private void showstat(ActionEvent event) {
+        try {
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ChartFXML.fxml"));
+            root = loader.load();
+            bb.getScene().setRoot(root);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
     }
 
 }

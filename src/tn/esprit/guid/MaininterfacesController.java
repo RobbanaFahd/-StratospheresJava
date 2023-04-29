@@ -24,6 +24,8 @@ public class MaininterfacesController implements Initializable {
 
     @FXML
     private Button bb;
+    @FXML
+    private Button afficherstatistique;
 
     /**
      * Initializes the controller class.
@@ -53,6 +55,30 @@ public class MaininterfacesController implements Initializable {
         try {
             Parent root = null;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NotificationsFXML.fxml"));
+            root = loader.load();
+            bb.getScene().setRoot(root);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void mapbanquedesang(ActionEvent event) {
+        try {
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("WebView.fxml"));
+            root = loader.load();
+            bb.getScene().setRoot(root);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void showStat(ActionEvent event) {
+        try {
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ChartFXML.fxml"));
             root = loader.load();
             bb.getScene().setRoot(root);
         } catch (IOException ex) {

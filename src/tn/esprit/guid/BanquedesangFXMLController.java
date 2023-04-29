@@ -6,7 +6,6 @@
 package tn.esprit.guid;
 
 import static com.sun.webkit.perf.WCFontPerfLogger.reset;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -19,17 +18,26 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Alert;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+
 import tn.esprit.entity.banquedesang;
 import tn.esprit.service.ServiceBanqueDeSang;
 
@@ -71,19 +79,28 @@ public class BanquedesangFXMLController implements Initializable {
     private Button modifier;
     @FXML
     private Button bb;
+    @FXML
+    private TextField filterInput;
+    @FXML
+    private Button pdfButton;
 
     @Override
+
     public void initialize(URL url, ResourceBundle rb) {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("adresse"));
         telColumn.setCellValueFactory(new PropertyValueFactory<>("tel"));
         longitudeColumn.setCellValueFactory(new PropertyValueFactory<>("longitude"));
         latitudeColumn.setCellValueFactory(new PropertyValueFactory<>("latitude"));
+
         // Load the data from the database and add it to the table
         List<banquedesang> banque = sb.afficher();
         banqueData.addAll(banque);
         tablebanquedesang.setItems(banqueData);
 
+        this.filterInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterLivreList(oldValue, newValue);
+        });
     }
 
     @FXML
@@ -99,11 +116,11 @@ public class BanquedesangFXMLController implements Initializable {
             alert.setHeaderText("Numéro de téléphone invalide");
             alert.setContentText("Le numéro de téléphone doit contenir 8 chiffres.");
             alert.showAndWait();
-        } else if (Float.parseFloat(tflongitude.getText()) < 180 || Float.parseFloat(tflongitude.getText()) > 0 || Float.parseFloat(tfaltitude.getText()) < 90 || Float.parseFloat(tfaltitude.getText()) > 0) {
+        } else if (Float.parseFloat(tflongitude.getText()) < 0 || Float.parseFloat(tfaltitude.getText()) < 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText("Coordonnées géographiques invalides");
-            alert.setContentText("La longitude doit être comprise entre 0 et 180 degrés, et la latitude doit être comprise entre 0 et 90 degrés.");
+            alert.setContentText("La longitude doit être positive");
             alert.showAndWait();
         } else if (!tfnom.getText().matches("[a-zA-Z0-9' -]{1,50}") || !tfadresse.getText().matches("[a-zA-Z0-9' -]{1,100}")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -233,7 +250,7 @@ public class BanquedesangFXMLController implements Initializable {
 
     @FXML
     private void retour(ActionEvent event) {
-                try {
+        try {
             Parent root = null;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("maininterfaces.fxml"));
             root = loader.load();
@@ -243,4 +260,51 @@ public class BanquedesangFXMLController implements Initializable {
         }
     }
 
+    public void filterLivreList(String oldValue, String newValue) {
+        ObservableList<banquedesang> filteredList = FXCollections.observableArrayList();
+        if (newValue != null && (newValue.length() < oldValue.length() || oldValue == null)) {
+            this.tablebanquedesang.setItems(this.banqueData);
+        } else {
+            String filterValue = newValue.toUpperCase();
+            for (banquedesang livres : this.banqueData) {
+                String filterLibelle = livres.getNom().toUpperCase();
+                if (filterLibelle.contains(filterValue)) {
+                    filteredList.add(livres);
+                }
+            }
+            this.tablebanquedesang.setItems(filteredList);
+        }
+    }
+
+    @FXML
+    private void DownloadPDF(ActionEvent event) throws DocumentException {
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream("banques_de_sang.pdf"));
+            document.open();
+            document.add(new Paragraph("Liste des banques de sang :"));
+            document.add(new Paragraph("\n"));
+            for (banquedesang banque : banqueData) {
+                document.add(new Paragraph("Nom : " + banque.getNom()));
+                document.add(new Paragraph("Adresse : " + banque.getAdresse()));
+                document.add(new Paragraph("Téléphone : " + banque.getTel()));
+                document.add(new Paragraph("Longitude : " + banque.getLongitude()));
+                document.add(new Paragraph("Latitude : " + banque.getLatitude()));
+                document.add(new Paragraph("\n"));
+            }
+            document.close();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("PDF généré");
+            alert.setHeaderText(null);
+            alert.setContentText("Le PDF a été généré avec succès !");
+            alert.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur lors de la génération du PDF");
+            alert.setHeaderText(null);
+            alert.setContentText("Une erreur s'est produite lors de la génération du PDF : " + e.getMessage());
+            alert.showAndWait();
+        }
+    }
 }
