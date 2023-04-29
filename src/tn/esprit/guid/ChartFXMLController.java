@@ -54,15 +54,16 @@ public class ChartFXMLController implements Initializable {
 
         // Create the pie chart
         JFreeChart chart = ChartFactory.createPieChart(
-            "Donor Type Count",
-            dataset,
-            true,
-            true,
-            false
+                "Donor Type Count",
+                dataset,
+                true,
+                true,
+                false
         );
         ChartPanel chartPanel = new ChartPanel(chart);
-        
+
+        // Set the size of the chart container and add the chart panel to it
+        chartContainer.setPrefSize(500, 500);
+
     }
-
 }
-

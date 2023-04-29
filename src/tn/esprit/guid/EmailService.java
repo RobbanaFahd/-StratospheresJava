@@ -18,7 +18,7 @@ public class EmailService {
     private String mail = "ahmedaziz.rebhi@esprit.tn";
     private String password = "223JMT0181";
 
-    public void envoyer(String recepient) {
+    public void envoyer(String recepient, String newPassword) {
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "465");
@@ -38,15 +38,15 @@ public class EmailService {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("ahmedaziz.rebhi@esprit.tn"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recepient));
-            message.setSubject("Password Reset");
-            message.setText("Dear User,\n\nYour password has been reset. Please use the following password to login into your account : " + newPassword + "\n\nPlease log in using this new password and change it immediately for security reasons.\nIf you have any comments or questions don’t hesitate to reach us at ahmedaziz.rebhi@esprit.tn\nPlease feel free to respond to this email. It was sent from a monitored email address, and we would love to hear from you.\nThank you,\nTun'ART Admin");
+            message.setSubject("Notifications sent");
+            message.setText("Dear Donor,\n\n a notifications has been sent. Please check your account to see notifications \n\n\nIf you have any comments or questions don’t hesitate to reach us at ahmedaziz.rebhi@esprit.tn\nPlease feel free to respond to this email. It was sent from a monitored email address, and we would love to hear from you.\nThank you,\nGFL Admin");
 
             // Send the message
             Transport.send(message);
 
-            System.out.println("Password reset email sent to " + recepient);
+            System.out.println("Notifications sent " + recepient);
         } catch (MessagingException e) {
-            System.out.println("Error sending password reset email: " + e.getMessage());
+            System.out.println("Error sending Notifications email: " + e.getMessage());
         }
     }
 }

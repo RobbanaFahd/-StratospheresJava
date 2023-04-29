@@ -129,12 +129,11 @@ public class NotificationsFXMLController implements Initializable {
 
         // Call the service layer to add the notification to the database
         sn.ajouter(n);
-        
-        
+        EmailService emailService = new EmailService();
+        emailService.envoyer(recipient, message);
 
         // Add the new notification to the table view
         notificationsData.add(n);
-        
 
         // Clear the input fields
         tftitle.clear();
