@@ -34,7 +34,7 @@
             </columns>
         </TableView>
         <Button fx:id="bb" layoutX="686.0" layoutY="324.0" mnemonicParsing="false" onAction="#retour" text="Retour" />
-        <Button fx:id="afficherstat" layoutX="476.0" layoutY="324.0" mnemonicParsing="false" onAction="#showstat" text="Afficher Statistique" />
+          <Button fx:id="statButton" layoutX="474.0" layoutY="324.0" mnemonicParsing="false" onAction="#showStatistics" text="Afficher Staistiques " />
       <SwingNode layoutX="396.0" layoutY="390.0" />
     </children>
 </AnchorPane>

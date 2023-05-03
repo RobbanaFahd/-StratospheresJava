@@ -37,13 +37,13 @@ public class WebViewController implements Initializable {
 
         WebEngine webEngine = webView.getEngine();
         webEngine.load(getClass().getResource("leaflet.html").toString());
-        
-        
 
     }
 
-    @FXML
-    private void retour(ActionEvent event) {
+
+
+@FXML
+        private void retour(ActionEvent event) {
         try {
             Parent root = null;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("maininterfaces.fxml"));

@@ -4,10 +4,17 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/main.java</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/WebViewController.java</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/Chart.java</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/ChartFXML.fxml</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/chartfxml.css</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/leaflet.html</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/pidv/Pidv.java</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/NotificationsFXMLController.java</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/tools/Connexion.java</file>
             <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/EmailService.java</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/ChartFXMLController.java</file>
+            <file>file:/C:/Users/Fahd/Documents/NetBeansProjects/Pidv/src/tn/esprit/guid/BanquedesangFXMLController.java</file>
         </group>
     </open-files>
 </project-private>

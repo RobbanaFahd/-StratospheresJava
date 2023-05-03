@@ -27,10 +27,18 @@
                 shadowAnchor: [12, 41]
             });
 
+
             // Add the first marker with a popup
             L.marker([36.89922361315621, 10.18974439188137])
                     .bindPopup('Esprit')
                     .addTo(map);
+
+
+            for (var location in banque_de_sang) {
+                L.marker([location.longitude, location.latitude])
+                        .bindPopup(location.nom)
+                        .addTo(map);
+            }
 
             // Retrieve data from the database
             var banque_de_sang_id = 1; // replace with the actual banque_de_sang id

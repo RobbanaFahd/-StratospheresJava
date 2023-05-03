@@ -39,22 +39,22 @@ public class ChartFXMLController implements Initializable {
     }
 
     private void displayPieChart() {
-        // Create a map to store the count of each donor type
-        Map<String, Integer> donorTypeCount = new HashMap<>();
+        // Create a map to store the count of each typesang
+        Map<String, Integer> typesangCount = new HashMap<>();
         for (notifications donor : donorData) {
-            String donorType = donor.getTypesang();
-            donorTypeCount.put(donorType, donorTypeCount.getOrDefault(donorType, 0) + 1);
+            String typesang = donor.getTypesang();
+            typesangCount.put(typesang, typesangCount.getOrDefault(typesang, 0) + 1);
         }
 
-        // Create a dataset with the donor type counts
+        // Create a dataset with the typesang counts
         DefaultPieDataset dataset = new DefaultPieDataset();
-        for (Map.Entry<String, Integer> entry : donorTypeCount.entrySet()) {
+        for (Map.Entry<String, Integer> entry : typesangCount.entrySet()) {
             dataset.setValue(entry.getKey(), entry.getValue());
         }
 
         // Create the pie chart
         JFreeChart chart = ChartFactory.createPieChart(
-                "Donor Type Count",
+                "Typesang Count",
                 dataset,
                 true,
                 true,
@@ -66,4 +66,5 @@ public class ChartFXMLController implements Initializable {
         chartContainer.setPrefSize(500, 500);
 
     }
+
 }

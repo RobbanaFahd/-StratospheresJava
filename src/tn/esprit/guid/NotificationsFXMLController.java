@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -32,6 +33,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import tn.esprit.entity.notifications;
 import tn.esprit.service.Servicenotifications;
+import javafx.scene.chart.PieChart;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -70,7 +73,7 @@ public class NotificationsFXMLController implements Initializable {
     @FXML
     private Button bb;
     @FXML
-    private Button afficherstat;
+    private Button statButton;
 
     /**
      * Initializes the controller class.
@@ -260,10 +263,7 @@ public class NotificationsFXMLController implements Initializable {
             System.out.println(ex.getMessage());
         }
     }
-    @FXML
-    private SwingNode chartContainer;
 
-    @FXML
     private void showstat(ActionEvent event) {
         try {
             Parent root = null;
@@ -275,5 +275,38 @@ public class NotificationsFXMLController implements Initializable {
         }
 
     }
+    @FXML
+    private void showStatistics(ActionEvent event) {
+        Servicenotifications sv = new Servicenotifications();
+        int typeA = 0;
+        int typeb = 0;
+        int typeo = 0;
+        List<notifications> annonces = sv.afficher();
+        for (notifications annonce : annonces) {
+            if (annonce.getTypesang().equals("Type A")) {
+                typeA++;
+            } else if (annonce.getTypesang().equals("Type B")){
+                typeb++;
+            }
+            typeo++;
+            
+        }
+
+        ObservableList<PieChart.Data> pieChartData
+                = FXCollections.observableArrayList(
+                        new PieChart.Data("Type A", typeA),
+                        new PieChart.Data("Type B", typeb),
+                         new PieChart.Data("Type O", typeo)
+                );
+
+        PieChart chart = new PieChart(pieChartData);
+        chart.setTitle("Statistiques  des types de sang ");
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(chart);
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
 }

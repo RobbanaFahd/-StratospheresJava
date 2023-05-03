@@ -24,8 +24,6 @@ public class MaininterfacesController implements Initializable {
 
     @FXML
     private Button bb;
-    @FXML
-    private Button afficherstatistique;
 
     /**
      * Initializes the controller class.
@@ -74,7 +72,6 @@ public class MaininterfacesController implements Initializable {
         }
     }
 
-    @FXML
     private void showStat(ActionEvent event) {
         try {
             Parent root = null;
